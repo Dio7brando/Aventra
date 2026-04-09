@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+
+    <!-- LOGO -->
+    <a class="navbar-brand logo" href="/listings">
+      <i class="fa-solid fa-compass"></i>
+      <span>Aventra</span>
+    </a>
+
+    <!-- TOGGLER -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- MAIN NAV -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <!-- LEFT -->
+      <div class="navbar-nav">
+        <a class="nav-link nav-btn" href="/listings"><b>Explore</b></a>
+      </div>
+
+      <!-- CENTER (SEARCH) -->
+      <form class="d-flex mx-auto search-form" action="/listings/search" method="GET">
+        <input
+          class="form-control me-2 search-input"
+          type="search"
+          name="q"
+          placeholder="Search destinations"
+        />
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+
+      <!-- RIGHT -->
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link nav-btn" href="/listings/new"><b>Airbnb your home</b></a>
+
+        <% if(!currUser) { %>
+          <a class="nav-link nav-btn nav-btn-primary" href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link nav-btn" href="/login"><b>Login</b></a>
+        <% } %>
+
+        <% if(currUser) { %>
+          <a class="nav-link nav-btn" href="/logout"><b>Logout</b></a>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<hr class="custom-line">

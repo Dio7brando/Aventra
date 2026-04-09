@@ -1,0 +1,86 @@
+<% layout("/layouts/boilerplate") %>
+<div class="container mt-4 px-4">
+  <div id="filters">
+    <a href="/listings/category/trending" class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </a>
+
+    <a href="/listings/category/rooms" class="filter">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+    </a>
+
+    <a href="/listings/category/iconic-cities" class="filter">
+      <div><i class="fa-solid fa-mountain-city"></i></div>
+      <p>Iconic Cities</p>
+    </a>
+
+    <a href="/listings/category/mountains" class="filter">
+      <div><i class="fa-solid fa-mountain"></i></div>
+      <p>Mountains</p>
+    </a>
+
+    <a href="/listings/category/castles" class="filter">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+    </a>
+
+    <a href="/listings/category/arctic" class="filter">
+      <div><i class="fa-regular fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </a>
+
+    <a href="/listings/category/beaches" class="filter">
+      <div><i class="fa-solid fa-umbrella-beach"></i></div>
+      <p>Beaches</p>
+    </a>
+
+    <a href="/listings/category/camping" class="filter">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+    </a>
+
+    <a href="/listings/category/farms" class="filter">
+      <div><i class="fa-solid fa-cow"></i></div>
+      <p>Farms</p>
+    </a>
+
+    <a href="/listings/category/breakfast" class="filter">
+      <div><i class="fa-solid fa-mug-saucer"></i></div>
+      <p>Breakfast</p>
+    </a>
+
+    <a href="/listings/category/breakfast" class="filter">
+      <div><i class="fa-solid fa-ship"></i></div>
+      <p>Boats</p>
+    </a>
+  </div>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3 g-4">
+    <% for(let listing of allListings) { %>
+    <a href="/listings/<%= listing._id %>" class="listing-link">
+      <div class="col mb-4">
+        <div class="card h-100 listing-card">
+          <img
+            src="<%= listing.image.url %>"
+            class="card-img-top"
+            style="height: 24rem; object-fit: cover"
+          />
+          <div class="card-img-overlay"></div>
+          <div class="card-body">
+            <p class="card-text">
+              <b>
+                <%= listing.title %>
+              </b>
+              <br />
+              ₹
+              <%= listing.price.toLocaleString("en-IN") %>
+              / night
+            </p>
+          </div>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+</div>
