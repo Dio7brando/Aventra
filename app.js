@@ -1,6 +1,4 @@
-if(process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
@@ -10,6 +8,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -41,7 +40,20 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+const store = MongoStore.create({
+  mongoUrl: process.env.MONGODB_URL,
+  crypto: {
+    secret: "mysupersecretcode",
+  },
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", (err) => {
+  console.log("ERROR IN MONGO SESSION STORE", err);
+});
+
 const sessionOptions = {
+  store,
   secret: "mysupersecretcode",
   resave: false,
   saveUninitialized: true,
@@ -56,14 +68,14 @@ const sessionOptions = {
   res.send("Site working");
 });*/
 
-app.use(session(sessionOptions)); // session mtlb client or server ka interaction 
+app.use(session(sessionOptions)); // session mtlb client or server ka interaction
 app.use(flash()); // flash cards
 
-app.use(passport.initialize()); // passport authentication krta hai 
+app.use(passport.initialize()); // passport authentication krta hai
 app.use(passport.session()); // ek session mai bas ek baar hi authentication hoga
-passport.use(new LocalStrategy(User.authenticate())); // passport ke andar hamari localstrategy mai User par authentication krna hai 
+passport.use(new LocalStrategy(User.authenticate())); // passport ke andar hamari localstrategy mai User par authentication krna hai
 
-// user se related info ko 1 session mai store karana serialisation hai or log out hone par info hatana deserialsation hai 
+// user se related info ko 1 session mai store karana serialisation hai or log out hone par info hatana deserialsation hai
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -75,14 +87,12 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
 // bas yeh ek line likhne se ham routes folder ko access krte hai jismai hamari sari listings hai
 app.use("/listings", listingRouter);
 
 // or yeh ek line hamare reviews folder ke liye
 app.use("/listings/:id/reviews", reviewRouter);
-  
+
 // isse ham user folder mai jayenge
 app.use("/", userRouter);
 

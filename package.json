@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "24.13.1"
+  },
   "name": "course_project",
   "version": "1.0.0",
   "description": "",
@@ -14,6 +17,7 @@
     "axios": "^1.14.0",
     "cloudinary": "^1.41.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.0",
     "ejs": "^5.0.1",
