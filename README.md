@@ -75,7 +75,7 @@ nodemon app.js
 
 🌐 Usage
 
-- Visit: "http://localhost:8080/listings"
+- Visit: https://aventra-d7vv.onrender.com/listings
 - Signup/Login to create listings and reviews
 - Explore listings by category or search
 
